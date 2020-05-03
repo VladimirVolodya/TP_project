@@ -3,12 +3,14 @@
 
 #include "Object.h"
 
+enum ObjectType;
+
 
 class OrdinaryAsteroid : public Object {
 private:
-    std::string effect;
+//    std::string effect;
 public:
-    OrdinaryAsteroid(std::string, float, float);
+    OrdinaryAsteroid();
     void update(float) override;
 };
 

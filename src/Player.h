@@ -3,6 +3,8 @@
 
 #include "Object.h"
 
+enum ObjectType;
+
 class Player;
 
 class PlayerDestroyer {
@@ -17,17 +19,20 @@ public:
 class Player : public Object {
 private:
     static Player *p_instance;
+    bool engineOn;
     static PlayerDestroyer destroyer;
-    Player(std::string textureName, float h, float w);
+    Player();
     Player(const Player &);
     Player &operator=(const Player &);
     ~Player() = default;
     friend class PlayerDestroyer;
 public:
-    static Player *getInstance();
+    static Player &getInstance();
     void update(float) override;
-    bool engineOn;
-    float getX();
+    void go();
+    void turnRight();
+    void turnLeft();
+    Object *shoot() const;
 };
 
 

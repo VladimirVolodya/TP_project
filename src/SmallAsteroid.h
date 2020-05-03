@@ -3,10 +3,12 @@
 
 #include "OrdinaryAsteroid.h"
 
+enum ObjectType;
+
 
 class SmallAsteroid : public OrdinaryAsteroid {
 public:
-    SmallAsteroid(std::string, float, float, float, float);
+    SmallAsteroid();
 };
 
 
