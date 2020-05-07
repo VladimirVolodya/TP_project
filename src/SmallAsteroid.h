@@ -3,9 +3,6 @@
 
 #include "OrdinaryAsteroid.h"
 
-enum ObjectType;
-
-
 class SmallAsteroid : public OrdinaryAsteroid {
 public:
     SmallAsteroid();

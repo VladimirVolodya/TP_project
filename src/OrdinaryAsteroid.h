@@ -2,16 +2,19 @@
 #define TP_PROJECT_ORDINARYASTEROID_H
 
 #include "Object.h"
+#include "HydraEffect.h"
 
 enum ObjectType;
 
 
 class OrdinaryAsteroid : public Object {
-private:
-//    std::string effect;
+protected:
+    SpecialEffect *special_effect;
 public:
     OrdinaryAsteroid();
     void update(float) override;
+    void setEffect(SpecialEffect *);
+    SpecialEffect *getEffect() const;
 };
 
 

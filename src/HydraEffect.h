@@ -2,11 +2,9 @@
 #define TP_PROJECT_HYDRAEFFECT_H
 
 #include "SpecialEffect.h"
-#include "SmallAsteroidFactory.h"
-#include "SmallAsteroidAdapter.h"
 
-class HydraEffect : SpecialEffect {
-    std::vector<Object *> effect(Object *) override;
+class HydraEffect : public SpecialEffect {
+    virtual void effect(std::list<Object *> &, Object *) override;
 };
 
 

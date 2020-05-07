@@ -4,12 +4,12 @@
 Player *Player::p_instance = 0;
 PlayerDestroyer Player::destroyer;
 
-Player &Player::getInstance() {
+Player *Player::getInstance() {
     if (!p_instance) {
         p_instance = new Player();
         destroyer.initialize(p_instance);
     }
-    return *p_instance;
+    return p_instance;
 }
 
 void PlayerDestroyer::initialize(Player *player) {
@@ -30,6 +30,7 @@ Player::Player() {
     alive = true;
     angle = 0;
     engineOn = false;
+    frozen = false;
 }
 
 void Player::go() {
@@ -37,14 +38,14 @@ void Player::go() {
 }
 
 void Player::turnRight() {
-    angle += 1;
+    angle += 12;
 }
 
 void Player::turnLeft() {
-    angle -= 1;
+    angle -= 12;
 }
 
-Object * Player::shoot() const {
+Bullet * Player::shoot() const {
     return BulletAdapter(new Bullet).adapt(this);
 }
 

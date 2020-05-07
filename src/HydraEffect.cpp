@@ -1,10 +1,12 @@
 #include "HydraEffect.h"
+#include "SmallAsteroidAdapter.h"
 
-std::vector<Object *> HydraEffect::effect(Object *object) {
-    SmallAsteroidFactory factory;
-    std::vector<Object *> effected_objects;
-    effected_objects.reserve(2);
-    effected_objects.push_back(SmallAsteroidAdapter(dynamic_cast<SmallAsteroid *>(factory.createObject())).adapt(object));
-    effected_objects.push_back(factory.createObject());
-    return effected_objects;
+void HydraEffect::effect(std::list<Object *> &objects, Object *p_ref_object) {
+    std::list<Object *>::iterator iter = objects.begin();
+    std::list<Object *>::iterator end = objects.end();
+    while (iter != end && *iter++ != p_ref_object);
+    --iter;
+    objects.push_back(SmallAsteroidAdapter(new SmallAsteroid()).adapt(p_ref_object));
+    objects.push_back(SmallAsteroidAdapter(new SmallAsteroid()).adapt(p_ref_object));
+    objects.erase(iter);
 }

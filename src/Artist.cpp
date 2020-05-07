@@ -24,6 +24,11 @@ void Artist::draw(const Object &object, sf::RenderWindow &window) {
     sprites[object.type].setTextureRect(sf::IntRect(textureSizes[object.type].width * int(object.currFrame), 0, textureSizes[object.type].width, textureSizes[object.type].height));
     sprites[object.type].setPosition(object.x, object.y);
     sprites[object.type].setRotation(object.angle + 90);
+    if (object.isFrozen()) {
+        sprites[object.type].setColor(sf::Color(0, 247, 255));
+    } else {
+        sprites[object.type].setColor(sf::Color(255, 255, 255, 255));
+    }
     window.draw(sprites[object.type]);
 }
 
@@ -50,7 +55,7 @@ Artist::Artist() {
 }
 
 void Artist::draw(const std::list<Object *> &objects, sf::RenderWindow &window) {
-    if (objects.empty()) {return;}
+    if (objects.empty()) { return; }
     std::_List_const_iterator<Object *> iter = objects.begin();
     while (iter != objects.end()) {
         draw(**iter++, window);

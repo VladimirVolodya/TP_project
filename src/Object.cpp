@@ -70,3 +70,33 @@ void Object::setX(float new_x) {
 void Object::setY(float new_y) {
     y = new_y;
 }
+
+bool Object::outOfScreen() const {
+    return (x < 0 || y < 0 || x > resolution.width || y > resolution.height);
+}
+
+ObjectType Object::getType() const {
+    return type;
+}
+
+bool Object::isFrozen() const {
+    return frozen;
+}
+
+void Object::freeze() {
+    dx /= 2;
+    dy /= 2;
+    speed /= 2;
+    frozen = true;
+}
+
+void Object::unfreeze() {
+    dx *= 2;
+    dy *= 2;
+    speed *= 2;
+    frozen = false;
+}
+
+double distance(const Object &first_object, const Object &second_object) {
+    return sqrt(pow(first_object.getX() - second_object.getX(), 2) + pow(first_object.getY() - second_object.getY(), 2));
+}

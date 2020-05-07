@@ -17,6 +17,8 @@ OrdinaryAsteroid::OrdinaryAsteroid() {
     type = ordinaryAsteroid;
     currFrame = 0;
     radius = 24;
+    frozen = false;
+    special_effect = new HydraEffect;
 }
 
 void OrdinaryAsteroid::update(float time) {
@@ -27,4 +29,12 @@ void OrdinaryAsteroid::update(float time) {
     x += dx * time;
     y += dy * time;
     checkScreenBorders();
+}
+
+SpecialEffect *OrdinaryAsteroid::getEffect() const {
+    return special_effect;
+}
+
+void OrdinaryAsteroid::setEffect(SpecialEffect *new_effect) {
+    special_effect = new_effect;
 }

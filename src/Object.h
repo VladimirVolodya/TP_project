@@ -23,11 +23,13 @@ protected:
     float currFrame;
     bool alive;
     float angle;
+    bool frozen;
     friend class Artist;
 public:
     virtual void update(float) = 0;
     virtual ~Object() = default;
     void checkScreenBorders();
+    bool outOfScreen() const;
     float getX() const;
     float getY() const;
     void setX(float);
@@ -42,7 +44,13 @@ public:
     void setRadius(float);
     void setAngle(float);
     float getAngle() const;
+    ObjectType getType() const;
+    bool isFrozen() const;
+    void freeze();
+    void unfreeze();
 };
+
+double distance(const Object &, const Object &);
 
 
 #endif //TP_PROJECT_OBJECT_H

@@ -4,8 +4,9 @@
 #include "SpecialEffect.h"
 
 
-class FreezeEffect : SpecialEffect {
-    std::vector<Object *> effect(Object *) override;
+class FreezeEffect : public SpecialEffect {
+    virtual void effect(Object *, Object *);
+    virtual void effect(std::list<Object *> &, Object *) override;
 };
 
 

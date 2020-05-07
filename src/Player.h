@@ -2,6 +2,7 @@
 #define TP_PROJECT_PLAYER_H
 
 #include "Object.h"
+#include "Bullet.h"
 
 enum ObjectType;
 
@@ -27,12 +28,12 @@ private:
     ~Player() = default;
     friend class PlayerDestroyer;
 public:
-    static Player &getInstance();
+    static Player *getInstance();
     void update(float) override;
     void go();
     void turnRight();
     void turnLeft();
-    Object *shoot() const;
+    Bullet *shoot() const;
 };
 
 

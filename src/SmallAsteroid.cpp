@@ -9,4 +9,6 @@ SmallAsteroid::SmallAsteroid() : OrdinaryAsteroid() {
     speed = sqrt(dx * dx + dy * dy);
     type = smallAsteroid;
     radius = 16;
+    frozen = false;
+    special_effect = nullptr;
 }
