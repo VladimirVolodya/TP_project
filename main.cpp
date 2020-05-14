@@ -1,12 +1,13 @@
 #include <SFML/Graphics.hpp>
-#include "src/Player.h"
+#include "Player/Player.h"
 #include <unistd.h>
 
 //extern const int W, H;
-#include "src/OrdinaryAsteroidFactory.h"
-#include "src/Bullet.h"
-#include "src/Artist.h"
+#include "Factories/OrdinaryAsteroidFactory.h"
+#include "Bullet/Bullet.h"
+#include "Artist/Artist.h"
 #include <list>
+
 using namespace sf;
 
 int main() {
