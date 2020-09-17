@@ -6,8 +6,8 @@
 
 
 class FreezeEffect : public SpecialEffect {
-    virtual void effect(Object *, Object *);
-    virtual void effect(std::list<Object *> &, Object *) override;
+    virtual void effect(std::shared_ptr<Object>, Object *);
+    void effect(std::list<std::shared_ptr<Object>> &, Object *) override;
 };
 
 

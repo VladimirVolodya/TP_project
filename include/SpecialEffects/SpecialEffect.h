@@ -2,13 +2,12 @@
 #define TP_PROJECT_SPECIALEFFECT_H
 
 #include "BaseObject/Object.h"
-#include <list>
 
 
 class SpecialEffect {
   public:
     virtual ~SpecialEffect() {}
-    virtual void effect(std::list<Object *> &, Object *) = 0;
+    virtual void effect(std::list<std::shared_ptr<Object>> &, Object *) = 0;
 };
 
 

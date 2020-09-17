@@ -8,4 +8,4 @@ add_library(
 
 target_link_libraries(player base_object bullet_adapter)
 
-add_dependencies(player base_object)
+add_dependencies(player base_object bullet_adapter)

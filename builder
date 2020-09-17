@@ -8,7 +8,7 @@ then
 	wget $ROOT_DIR "https://www.sfml-dev.org/files/SFML-2.5.1-sources.zip"
 	unzip SFML-2.5.1-sources.zip
 	cd SFML-2.5.1
-	cmake -DCMAKE_INSTALL_PREFIX=$ROOT_DIR/SFML-2.5.1-Compiled
+	cmake -DCMAKE_INSTALL_PREFIX="$ROOT_DIR"/SFML-2.5.1-Compiled
 	make
 	make install
 	cd ..
@@ -19,6 +19,6 @@ else
 fi
 mkdir build
 cd build
-cp -R ../images images
+cp -r ../images images
 cmake ..
 make

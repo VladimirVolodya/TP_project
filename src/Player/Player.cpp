@@ -1,22 +1,13 @@
 #include "Player/Player.h"
 
-Player *Player::p_instance = 0;
-PlayerDestroyer Player::destroyer;
+Player *Player::p_instance = nullptr;
+int16_t Player::lifes = 2;
 
 Player *Player::getInstance() {
     if (!p_instance) {
         p_instance = new Player();
-        destroyer.initialize(p_instance);
     }
     return p_instance;
-}
-
-void PlayerDestroyer::initialize(Player *player) {
-    p_instance = player;
-}
-
-PlayerDestroyer::~PlayerDestroyer() {
-    delete p_instance;
 }
 
 Player::Player() {
@@ -30,6 +21,7 @@ Player::Player() {
     angle = 0;
     engineOn = false;
     frozen = false;
+    radius = 21.5;
 }
 
 void Player::go() {
@@ -58,7 +50,51 @@ void Player::update(float time) {
         dx = dy = 0;
         currFrame = 0;
     }
+    if (timer) {
+        if (timer->Tick(time)) {
+            delete timer;
+            timer = nullptr;
+            if (frozen) {
+                unfreeze();
+            }
+        }
+    }
     x += dx;
     y += dy;
     checkScreenBorders();
+}
+
+Player::~Player() {
+    delete timer;
+    p_instance = nullptr;
+}
+
+bool Player::died(const std::list<std::shared_ptr<Object>> &objects) {
+    if (completelyDead()) { return true; }
+    auto iter = objects.begin();
+    ++iter;
+    while (iter != objects.end()) {
+        if (checkCollision(*this, **iter)) {
+            --lifes;
+            return true;
+        }
+        ++iter;
+    }
+    return false;
+}
+
+void Player::respawn() {
+    x = 600;
+    y = 400;
+    frozen = false;
+    delete timer;
+    timer = nullptr;
+}
+
+int32_t Player::getLifes() const {
+    return lifes;
+}
+
+bool Player::completelyDead() const {
+    return lifes <= 0;
 }

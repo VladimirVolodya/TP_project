@@ -4,7 +4,7 @@
 #include "SpecialEffects/SpecialEffect.h"
 
 class HydraEffect : public SpecialEffect {
-    virtual void effect(std::list<Object *> &, Object *) override;
+    void effect(std::list<std::shared_ptr<Object>> &, Object *) override;
 };
 
 

@@ -97,6 +97,23 @@ void Object::unfreeze() {
     frozen = false;
 }
 
+void Object::effect(std::list<std::shared_ptr<Object>> &) {}
+
+void Object::setTimer(int64_t new_timer_time) {
+    delete timer;
+    timer = new Timer(new_timer_time);
+}
+
+Object::Object() {
+    timer = nullptr;
+}
+
+Object::~Object() {}
+
 double distance(const Object &first_object, const Object &second_object) {
     return sqrt(pow(first_object.getX() - second_object.getX(), 2) + pow(first_object.getY() - second_object.getY(), 2));
+}
+
+bool checkCollision(const Object &first_object, const Object &second_object) {
+    return distance(first_object, second_object) <= (first_object.getRadius() + second_object.getRadius());
 }

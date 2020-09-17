@@ -1,5 +1,4 @@
 #include "Asteroids/OrdinaryAsteroid.h"
-#include <cmath>
 
 OrdinaryAsteroid::OrdinaryAsteroid() {
     x = rand() % 1000;
@@ -19,12 +18,22 @@ OrdinaryAsteroid::OrdinaryAsteroid() {
     radius = 24;
     frozen = false;
     special_effect = nullptr;
+    last_effect = nullptr;
 }
 
 void OrdinaryAsteroid::update(float time) {
     currFrame += 0.1 * time;
     if (currFrame >= 16) {
         currFrame -= 16;
+    }
+    if (timer) {
+        if (timer->Tick(time)) {
+            delete timer;
+            timer = nullptr;
+            if (frozen) {
+                unfreeze();
+            }
+        }
     }
     x += dx * time;
     y += dy * time;
@@ -36,10 +45,30 @@ SpecialEffect *OrdinaryAsteroid::getEffect() const {
 }
 
 void OrdinaryAsteroid::setEffect(SpecialEffect *new_effect) {
-    delete special_effect;
+    if (last_effect != special_effect) {
+        delete last_effect;
+    }
+    last_effect = special_effect;
     special_effect = new_effect;
 }
 
 OrdinaryAsteroid::~OrdinaryAsteroid() {
     delete special_effect;
+    delete last_effect;
+    delete timer;
+}
+
+void OrdinaryAsteroid::effect(std::list<std::shared_ptr<Object>> &objects) {
+    if (special_effect) {
+        special_effect->effect(objects, this);
+    }
+}
+
+void OrdinaryAsteroid::unfreeze() {
+    Object::unfreeze();
+    if (special_effect != last_effect) {
+        delete special_effect;
+    }
+    special_effect = last_effect;
+    last_effect = nullptr;
 }

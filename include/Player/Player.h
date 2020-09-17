@@ -4,29 +4,14 @@
 #include "BaseObject/Object.h"
 #include "Adapters/BulletAdapter.h"
 
-enum ObjectType;
-
-class Player;
-
-class PlayerDestroyer {
-private:
-    Player *p_instance;
-    void initialize(Player *);
-    friend class Player;
-public:
-    ~PlayerDestroyer();
-};
-
 class Player : public Object {
 private:
+    static int16_t lifes;
     static Player *p_instance;
     bool engineOn;
-    static PlayerDestroyer destroyer;
     Player();
     Player(const Player &);
     Player &operator=(const Player &);
-    ~Player() = default;
-    friend class PlayerDestroyer;
 public:
     static Player *getInstance();
     void update(float) override;
@@ -34,6 +19,11 @@ public:
     void turnRight();
     void turnLeft();
     Bullet *shoot() const;
+    ~Player() override;
+    bool died(const std::list<std::shared_ptr<Object>> &);
+    void respawn();
+    int32_t getLifes() const;
+    bool completelyDead() const;
 };
 
 

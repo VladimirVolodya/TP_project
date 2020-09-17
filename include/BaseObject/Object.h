@@ -1,8 +1,10 @@
 #ifndef TP_PROJECT_OBJECT_H
 #define TP_PROJECT_OBJECT_H
 
-#include <vector>
+#include <list>
 #include <cmath>
+#include <memory>
+#include "Timer/Timer.h"
 
 const float DEGTORAD = 0.017453f;
 
@@ -25,9 +27,11 @@ protected:
     float angle;
     bool frozen;
     friend class Artist;
+    Timer *timer;
 public:
     virtual void update(float) = 0;
-    virtual ~Object() = default;
+    Object();
+    virtual ~Object();
     void checkScreenBorders();
     bool outOfScreen() const;
     float getX() const;
@@ -46,11 +50,14 @@ public:
     float getAngle() const;
     ObjectType getType() const;
     bool isFrozen() const;
-    void freeze();
-    void unfreeze();
+    virtual void freeze();
+    virtual void unfreeze();
+    virtual void effect(std::list<std::shared_ptr<Object>> &);
+    void setTimer(int64_t);
 };
 
 double distance(const Object &, const Object &);
+bool checkCollision(const Object &, const Object &);
 
 
 #endif //TP_PROJECT_OBJECT_H

@@ -10,12 +10,15 @@ enum ObjectType;
 class OrdinaryAsteroid : public Object {
 protected:
     SpecialEffect *special_effect;
+    SpecialEffect *last_effect;
 public:
     OrdinaryAsteroid();
     void update(float) override;
-    ~OrdinaryAsteroid();
+    ~OrdinaryAsteroid() override;
     void setEffect(SpecialEffect *);
     SpecialEffect *getEffect() const;
+    void effect(std::list<std::shared_ptr<Object>> &);
+    void unfreeze() override;
 };
 
 

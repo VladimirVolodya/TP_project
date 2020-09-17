@@ -10,5 +10,4 @@ SmallAsteroid::SmallAsteroid() : OrdinaryAsteroid() {
     type = smallAsteroid;
     radius = 16;
     frozen = false;
-    special_effect = nullptr;
 }
